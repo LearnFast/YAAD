@@ -9,7 +9,7 @@
 /test/version_tmp/
 /tmp/
 secrets.yml
-*.log
+*/*.log
 *.swp
 
 ## Specific to RubyMotion:
