@@ -16,6 +16,10 @@ class ConceptsController < ApplicationController
     @concept = Concept.find(params[:id])
   end
 
+  def display_concepts
+    @concepts_ary = Concept.last(10)
+  end
+
   private
 
   def concept_params

@@ -11,6 +11,7 @@
 secrets.yml
 */*.log
 *.swp
+tags
 
 ## Specific to RubyMotion:
 .dat*
