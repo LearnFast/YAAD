@@ -1,1 +1,14 @@
-Home
+<%= render(:partial => "concepts.js", :collection => @concepts) %> 
+
+<% @concepts.each_with_index do |concept, index| %>
+    <div class="concept-card concept-hidden" data-position="<%= index %>">
+        <p class="lead"><%= concept.question %></p>
+        <p class="answer"><%= concept.answer %></p>
+        <p class="show-answer"><button class="btn btn-lg btn-success" href="#" role="button">Show Answer</button></p>
+    </div>
+<% end %>
+
+<div class="concept-next">
+    <span class="glyphicon glyphicon-circle-arrow-right"></span>
+</div>
+<p class="position-viewer"><span class="current-position">1</span>/3</p>

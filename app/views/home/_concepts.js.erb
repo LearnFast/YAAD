@@ -1,0 +1,26 @@
+<script type='text/javascript'>
+$(document).ready(function() {
+    $('.show-answer').click(function(event) {
+        event.preventDefault();
+        $(this).parent().children('.answer').show();
+        $(this).children().attr('disabled', true);
+    });
+
+    $('.concept-card').first().show();
+
+    var current_position = 0;
+    var total_count = <%= @concepts.present? ? @concepts.size : 0 %>;
+
+    $('.concept-next').click(function() {
+        $('*[data-position="' + current_position + '"]').hide(); 
+        if(current_position < total_count -1) {
+            current_position += 1;
+        }
+        else {
+            current_position = 0;
+        }
+    $('.current-position').html(current_position+1);
+    $('*[data-position="' + current_position + '"]').show(); 
+    });
+});
+</script>
