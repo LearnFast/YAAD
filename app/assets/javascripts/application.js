@@ -15,3 +15,14 @@
 //= require turbolinks
 //= require bootstrap.min
 //= require_tree .
+
+$(document).ready(function() {
+  $('.nav li').click(function(e) {
+    e.preventDefault();
+    $('.nav li').removeClass('active');
+    $(this).addClass('active');
+    $('.learn-page').hide();
+    $('.manage-page').hide();
+    $('.' + $(this).data('page')).show();
+  });
+});

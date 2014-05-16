@@ -1,14 +1,28 @@
-<%= render(:partial => "concepts.js", :collection => @concepts) %> 
+<%= render(:partial => "concepts.js", :collection => @concepts_to_learn) %> 
 
-<% @concepts.each_with_index do |concept, index| %>
-    <div class="concept-card concept-hidden" data-position="<%= index %>">
-        <p class="lead"><%= concept.question %></p>
-        <p class="answer"><%= concept.answer %></p>
-        <p class="show-answer"><button class="btn btn-lg btn-success show-answer-button" href="#" role="button">Show Answer</button></p>
+<div class="learn-page">
+    <% @concepts_to_learn.each_with_index do |concept, index| %>
+        <div class="concept-card concept-hidden" data-position="<%= index %>">
+            <p class="lead"><%= concept.question %></p>
+            <p class="answer"><%= concept.answer %></p>
+            <p class="show-answer"><button class="btn btn-lg btn-success show-answer-button" href="#" role="button">Show Answer</button></p>
+        </div>
+    <% end %>
+
+    <div class="concept-next">
+        <span class="glyphicon glyphicon-circle-arrow-right concept-next-button"></span>
     </div>
-<% end %>
-
-<div class="concept-next">
-    <span class="glyphicon glyphicon-circle-arrow-right concept-next-button"></span>
+    <p class="position-viewer"><span class="current-position">1</span>/<%= @concepts_to_learn.size %></p>
 </div>
-<p class="position-viewer"><span class="current-position">1</span>/3</p>
+
+<div class="manage-page">
+    <% @concepts.each do |concept| %>
+        <div class="concept-edit" data-id="<%= concept.id %>">
+            <div class="concept-qa">
+                <p><strong>Question:</strong>&nbsp; <%= concept.question %></p> 
+                <p><strong>Answer:</strong>&nbsp; <%= concept.answer %></p> 
+            </div>
+            <button class="btn btn-danger delete-concept" href="#" role="button">Delete</button>
+        </div>
+    <% end %>
+</div>

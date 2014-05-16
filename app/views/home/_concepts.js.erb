@@ -1,5 +1,7 @@
 <script type='text/javascript'>
 $(document).ready(function() {
+    $('.manage-page').hide();
+
     $('.show-answer-button').click(function(event) {
         event.preventDefault();
         $(this).parent().parent().children('.answer').show();
@@ -9,7 +11,7 @@ $(document).ready(function() {
     $('.concept-card').first().show();
 
     var current_position = 0;
-    var total_count = <%= @concepts.present? ? @concepts.size : 0 %>;
+    var total_count = <%= @concepts_to_learn.present? ? @concepts_to_learn.size : 0 %>;
 
     $('.concept-next-button').click(function() {
         $('*[data-position="' + current_position + '"]').hide(); 
@@ -19,8 +21,18 @@ $(document).ready(function() {
         else {
             current_position = 0;
         }
-    $('.current-position').html(current_position+1);
-    $('*[data-position="' + current_position + '"]').show(); 
+        $('.current-position').html(current_position+1);
+        $('*[data-position="' + current_position + '"]').show(); 
+    });
+
+    $('.delete-concept').unbind().click(function(e) {
+        e.preventDefault();
+        $.ajax({
+            type: "DELETE",
+            url: "/concepts/"+$(this).parent().data('id'),
+            data: "authenticity_token="+AUTH_TOKEN
+        })
+        $(this).parent().hide("slow", function(){ $(this).remove(); })
     });
 });
 </script>

@@ -24,6 +24,21 @@
     font-size: 4em;
 }
 
+.concept-edit {
+    border: 1px solid lightgray;
+    background-color: #EEEEEE;
+    padding: 10px;
+    border-radius: 5px;
+    width: 400px;
+    height: 200px;
+    display: inline-block;
+    text-align: center;
+    margin: 25px;
+}
+
+.concept-qa {
+}
+
 .show-answer {
     text-align: center;
     padding-top: 40px;

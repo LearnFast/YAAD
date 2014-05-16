@@ -20,6 +20,13 @@ class ConceptsController < ApplicationController
     @concepts_ary = Concept.last(10)
   end
 
+  def destroy
+    Concept.find(params[:id]).destroy
+    respond_to do |format|
+      format.json { head :ok }
+    end
+  end
+
   private
 
   def concept_params
