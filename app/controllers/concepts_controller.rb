@@ -4,11 +4,9 @@ class ConceptsController < ApplicationController
   end
 
   def create
-    @concept = Concept.new(concept_params)
-    if @concept.save
-      redirect_to @concept
-    else
-      render 'new'
+    @concept = Concept.create!(question: params[:question], answer: params[:answer])
+    respond_to do |format|
+      format.json { render json: @concept.id }
     end
   end
 

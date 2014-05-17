@@ -16,11 +16,24 @@
 </div>
 
 <div class="manage-page">
+        <div class="concept-edit">
+            <form role="form" id="new-concept-form">
+                <div class="form-group">
+                    <label for="question">Question</label>
+                    <input type="text" class="form-control" id="question" name="question" placeholder="How many feet make a mile?">
+                </div>
+                <div class="form-group">
+                    <label for="answer">Answer</label>
+                    <input type="text" class="form-control" id="answer" name="answer" placeholder="5,280">
+                </div>
+                <button type="submit" class="btn btn-success new-concept">Create Card</button>
+            </form>
+        </div>
     <% @concepts.each do |concept| %>
         <div class="concept-edit" data-id="<%= concept.id %>">
             <div class="concept-qa">
-                <p><strong>Question:</strong>&nbsp; <%= concept.question %></p> 
-                <p><strong>Answer:</strong>&nbsp; <%= concept.answer %></p> 
+                <p><strong>Question</strong></p><p><%= concept.question %></p>
+                <p><strong>Answer</strong></p><p><%= concept.answer %></p> 
             </div>
             <button class="btn btn-danger delete-concept" href="#" role="button">Delete</button>
         </div>
