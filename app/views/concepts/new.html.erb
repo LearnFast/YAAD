@@ -1,0 +1,11 @@
+
+
+<h1>New Concept</h1>
+
+<%= form_for @concept do |f| %>
+  <%= f.label :question %>
+  <%= f.text_area :question %>
+  <%= f.label :answer %>
+  <%= f.text_area :answer %>
+  <%= f.submit "Create" %>
+<% end %>

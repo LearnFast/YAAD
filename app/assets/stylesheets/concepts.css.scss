@@ -1,0 +1,60 @@
+// Place all the styles related to the Concepts controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.concept-card {
+    margin-top: 100px;
+    max-width: 50em;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 50px;
+    padding-bottom: 25px;
+    border: 1px solid lightgray;
+    background-color: #EEEEEE;
+    border-radius: 5px;
+}
+
+.concept-hidden {
+    display: none;
+}
+
+.concept-next {
+    margin-top: 50px;
+    text-align: center;
+    font-size: 4em;
+}
+
+.concept-edit {
+    border: 1px solid lightgray;
+    background-color: #EEEEEE;
+    padding: 10px;
+    border-radius: 5px;
+    width: 450px;
+    height: 230px;
+    display: inline-table;
+    text-align: center;
+    margin: 25px;
+}
+
+.concept-qa {
+}
+
+.show-answer {
+    text-align: center;
+    padding-top: 40px;
+}
+
+.answer {
+    text-align: center;
+    font-size: 3em;
+    display: none;
+}
+
+.position-viewer {
+    text-align: center;
+    font-size: 2em;
+}
+
+.btn:focus {
+  outline: none !important;
+}
