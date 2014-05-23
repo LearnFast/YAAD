@@ -1,6 +1,5 @@
 <script type='text/javascript'>
 $(document).ready(function() {
-    $('.manage-page').hide();
 
     $('.show-answer-button').click(function(event) {
         event.preventDefault();
@@ -8,10 +7,10 @@ $(document).ready(function() {
         $(this).attr('disabled', true);
     });
 
-    $('.concept-card').first().show();
-
     var current_position = 0;
-    var total_count = <%= @concepts_to_learn.present? ? @concepts_to_learn.size : 0 %>;
+    var total_count = <%= @user_concepts_to_learn.present? ? @user_concepts_to_learn.size : 0 %>;
+
+    $('.concept-card').first().show();
 
     $('.concept-next-button').click(function() {
         $('*[data-position="' + current_position + '"]').hide(); 
