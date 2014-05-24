@@ -2,11 +2,14 @@
 #
 # Table name: user_concepts
 #
-#  id :integer          not null, primary key
+#  id         :integer          not null, primary key
+#  user_id    :integer
+#  concept_id :integer
+#  attempt_id :integer
 #
 
 class UserConcept < ActiveRecord::Base
   belongs_to :user
   belongs_to :concept
-  has_many :attempts
+  belongs_to :attempts
 end

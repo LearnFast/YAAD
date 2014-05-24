@@ -12,7 +12,6 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema.define(version: 20140520022429) do
-
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -20,6 +19,7 @@ ActiveRecord::Schema.define(version: 20140520022429) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "answer"
+    t.integer  "previous_id"
   end
 
   create_table "concepts", force: true do |t|
@@ -30,7 +30,12 @@ ActiveRecord::Schema.define(version: 20140520022429) do
   create_table "user_concepts", force: true do |t|
     t.integer "user_id"
     t.integer "concept_id"
+    t.integer "attempt_id"
   end
+
+  add_index "user_concepts", ["attempt_id"], name: "index_user_concepts_on_attempt_id", using: :btree
+  add_index "user_concepts", ["concept_id"], name: "index_user_concepts_on_concept_id", using: :btree
+  add_index "user_concepts", ["user_id"], name: "index_user_concepts_on_user_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false
@@ -46,8 +51,6 @@ ActiveRecord::Schema.define(version: 20140520022429) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "name"
-    t.decimal  "constant_a"
-    t.decimal  "constant_b"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
