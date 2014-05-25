@@ -1,7 +1,7 @@
 class ConceptsController < ApplicationController
   def create
-    concept = Concept.create!(question: params[:question], answer: params[:answer])
-    @user_concept = UserConcept.create!(user: current_user, concept: concept)
+    current_user.concepts << Concept.create!(question: params[:question], answer: params[:answer])
+    @concept = Concept.last
     respond_to do |format|
       format.json { render json: @user_concept.id }
     end
