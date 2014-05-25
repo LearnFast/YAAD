@@ -16,8 +16,6 @@
 #  created_at             :datetime
 #  updated_at             :datetime
 #  name                   :string(255)
-#  constant_a             :decimal(, )
-#  constant_b             :decimal(, )
 #
 
 class User < ActiveRecord::Base
@@ -28,4 +26,12 @@ class User < ActiveRecord::Base
 
   has_many :concepts, :through => :user_concepts
   has_many :user_concepts, dependent: :destroy
+
+  def concepts_for_review
+    [].tap do |ary|
+      user_concepts.each do |uc|
+        ary << uc.concept if uc.review_date <= Date.today
+      end
+    end
+  end 
 end

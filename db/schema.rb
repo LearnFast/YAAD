@@ -28,9 +28,10 @@ ActiveRecord::Schema.define(version: 20140520022429) do
   end
 
   create_table "user_concepts", force: true do |t|
-    t.integer "user_id"
-    t.integer "concept_id"
-    t.integer "attempt_id"
+    t.integer  "user_id"
+    t.integer  "concept_id"
+    t.integer  "attempt_id"
+    t.datetime "review_date"
   end
 
   add_index "user_concepts", ["attempt_id"], name: "index_user_concepts_on_attempt_id", using: :btree
