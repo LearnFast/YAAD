@@ -11,4 +11,6 @@
 
 class Attempt < ActiveRecord::Base
   has_one :user_concept
+  has_one :subsequent, class_name: 'Attempt', foreign_key: 'previous_id'
+  belongs_to :previous, class_name: 'Attempt'
 end

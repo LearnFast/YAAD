@@ -22,6 +22,8 @@ ActiveRecord::Schema.define(version: 20140520022429) do
     t.integer  "previous_id"
   end
 
+  add_index "attempts", ["previous_id"], name: "index_attempts_on_previous_id", using: :btree
+
   create_table "concepts", force: true do |t|
     t.string "question"
     t.string "answer"
