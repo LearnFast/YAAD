@@ -1,10 +1,10 @@
-<%= render(:partial => "concepts.js", :collection => @concepts_to_learn) %> 
+<%= render(:partial => "concepts.js", :collection => @user_concepts_to_learn) %> 
 
 <div class="learn-page">
-    <% @concepts_to_learn.each_with_index do |concept, index| %>
+    <% @user_concepts_to_learn.each_with_index do |user_concept, index| %>
         <div class="concept-card concept-hidden" data-position="<%= index %>">
-            <p class="lead"><%= concept.question %></p>
-            <p class="answer"><%= concept.answer %></p>
+            <p class="lead"><%= user_concept.concept.question %></p>
+            <p class="answer"><%= user_concept.concept.answer %></p>
             <p class="show-answer"><button class="btn btn-lg btn-success show-answer-button" href="#" role="button">Show Answer</button></p>
         </div>
     <% end %>
@@ -12,28 +12,29 @@
     <div class="concept-next">
         <span class="glyphicon glyphicon-circle-arrow-right concept-next-button"></span>
     </div>
-    <p class="position-viewer"><span class="current-position">1</span>/<%= @concepts_to_learn.size %></p>
+    <% starting_position = @user_concepts_to_learn.size == 0 ? 0 : 1 %>
+    <p class="position-viewer"><span class="current-position"><%= starting_position %></span>/<%= @user_concepts_to_learn.size %></p>
 </div>
 
 <div class="manage-page">
-        <div class="concept-edit">
-            <form role="form" id="new-concept-form">
-                <div class="form-group">
-                    <label for="question">Question</label>
-                    <input type="text" class="form-control" id="question" name="question" placeholder="How many feet make a mile?">
-                </div>
-                <div class="form-group">
-                    <label for="answer">Answer</label>
-                    <input type="text" class="form-control" id="answer" name="answer" placeholder="5,280">
-                </div>
-                <button type="submit" class="btn btn-success new-concept">Create Card</button>
-            </form>
-        </div>
-    <% @concepts.each do |concept| %>
-        <div class="concept-edit" data-id="<%= concept.id %>">
+    <div class="concept-edit">
+        <form role="form" id="new-concept-form">
+            <div class="form-group">
+                <label for="question">Question</label>
+                <input type="text" class="form-control" id="question" name="question" placeholder="How many feet make a mile?">
+            </div>
+            <div class="form-group">
+                <label for="answer">Answer</label>
+                <input type="text" class="form-control" id="answer" name="answer" placeholder="5,280">
+            </div>
+            <button type="submit" class="btn btn-success new-concept">Create Card</button>
+        </form>
+    </div>
+    <% @user_concepts.each do |user_concept| %>
+        <div class="concept-edit" data-id="<%= user_concept.id %>">
             <div class="concept-qa">
-                <p><strong>Question</strong></p><p><%= concept.question %></p>
-                <p><strong>Answer</strong></p><p><%= concept.answer %></p> 
+                <p><strong>Question</strong></p><p><%= user_concept.concept.question %></p>
+                <p><strong>Answer</strong></p><p><%= user_concept.concept.answer %></p> 
             </div>
             <button class="btn btn-danger delete-concept" href="#" role="button">Delete</button>
         </div>

@@ -27,5 +27,5 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   has_many :concepts, :through => :user_concepts
-  has_many :user_concepts
+  has_many :user_concepts, dependent: :destroy
 end

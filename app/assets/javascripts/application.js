@@ -17,6 +17,7 @@
 //= require_tree .
 
 $(document).ready(function() {
+  $('.manage-page').hide();
   $('.nav li').click(function(e) {
     e.preventDefault();
     $('.nav li').removeClass('active');
