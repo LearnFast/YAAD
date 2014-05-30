@@ -16,11 +16,11 @@ class UserConcept < ActiveRecord::Base
   has_many :attempts
   validates_presence_of :review_date
 
-  def update_from_review! response_quality
+  def update_from_review response_quality
     self.e_factor     = new_e_factor response_quality
     self.rep_interval = new_rep_interval
     self.review_date  = Date.today + rep_interval
-    save!
+    self.save!
   end
 
   private
