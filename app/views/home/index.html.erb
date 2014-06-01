@@ -1,10 +1,10 @@
-<%= render(:partial => "concepts.js", :collection => @user_concepts_to_learn) %> 
+<%= render(:partial => "concepts.js", :collection => @concepts_to_learn) %> 
 
 <div class="learn-page">
-    <% @user_concepts_to_learn.each_with_index do |user_concept, index| %>
+    <% @concepts_to_learn.each_with_index do |concept, index| %>
         <div class="concept-card concept-hidden" data-position="<%= index %>">
-            <p class="lead"><%= user_concept.concept.question %></p>
-            <p class="answer"><%= user_concept.concept.answer %></p>
+            <p class="lead"><%= concept.question %></p>
+            <p class="answer"><%= concept.answer %></p>
             <p class="show-answer"><button class="btn btn-lg btn-success show-answer-button" href="#" role="button">Show Answer</button></p>
         </div>
     <% end %>
@@ -12,8 +12,8 @@
     <div class="concept-next">
         <span class="glyphicon glyphicon-circle-arrow-right concept-next-button"></span>
     </div>
-    <% starting_position = @user_concepts_to_learn.size == 0 ? 0 : 1 %>
-    <p class="position-viewer"><span class="current-position"><%= starting_position %></span>/<%= @user_concepts_to_learn.size %></p>
+    <% starting_position = @concepts_to_learn.size == 0 ? 0 : 1 %>
+    <p class="position-viewer"><span class="current-position"><%= starting_position %></span>/<%= @concepts_to_learn.size %></p>
 </div>
 
 <div class="manage-page">
@@ -30,11 +30,11 @@
             <button type="submit" class="btn btn-success new-concept">Create Card</button>
         </form>
     </div>
-    <% @user_concepts.each do |user_concept| %>
-        <div class="concept-edit" data-id="<%= user_concept.id %>">
+    <% @concepts.each do |concept| %>
+        <div class="concept-edit" data-id="<%= concept.id %>">
             <div class="concept-qa">
-                <p><strong>Question</strong></p><p><%= user_concept.concept.question %></p>
-                <p><strong>Answer</strong></p><p><%= user_concept.concept.answer %></p> 
+                <p><strong>Question</strong></p><p><%= concept.question %></p>
+                <p><strong>Answer</strong></p><p><%= concept.answer %></p> 
             </div>
             <button class="btn btn-danger delete-concept" href="#" role="button">Delete</button>
         </div>

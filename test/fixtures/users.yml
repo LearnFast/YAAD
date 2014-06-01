@@ -22,6 +22,8 @@
 user1:
   name: Karan Toor
   email: karan@karan.com
+  encrypted_password: 
 user2:
   name: Matt Schartman
   email: matt@matt.com
+  encrypted_password: 
