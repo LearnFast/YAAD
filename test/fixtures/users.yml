@@ -22,8 +22,8 @@
 user1:
   name: Karan Toor
   email: karan@karan.com
-  encrypted_password: 
+  encrypted_password: $2a$10$KwmbiWzrawyvcavLk9vjbuCFSeu6qKPh5l.6gPsfN4Ex9UVk7662m
 user2:
   name: Matt Schartman
   email: matt@matt.com
-  encrypted_password: 
+  encrypted_password: $2a$10$KwmbiWzrawyvcavLk9vjbuCFSeu6qKPh5l.6gPsfN4Ex9UVk7662m

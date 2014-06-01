@@ -1,13 +1,15 @@
 class ConceptsController < ApplicationController
   def create
-    @concept = Concept.create!(question: params[:question], answer: params[:answer]).tap{current_user.concepts << c}
+    @concept = Concept.create!(question: params[:question], answer: params[:answer]).tap do |c| 
+      current_user.user_concepts << UserConcept.new(concept:c, review_date:Date.today)
+    end
     respond_to do |format|
-      format.json { render json: @user_concept.id }
+      format.json { render json: @concept.id }
     end
   end
 
   def destroy
-    UserConcept.find(params[:id]).destroy
+    Concept.find(params[:id]).destroy
     respond_to do |format|
       format.json { head :ok }
     end
