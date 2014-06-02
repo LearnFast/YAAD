@@ -1,11 +1,18 @@
 <%= render(:partial => "concepts.js", :collection => @concepts_to_learn) %> 
 
+
+
 <div class="learn-page">
     <% @concepts_to_learn.each_with_index do |concept, index| %>
         <div class="concept-card concept-hidden" data-position="<%= index %>">
             <p class="lead"><%= concept.question %></p>
             <p class="answer"><%= concept.answer %></p>
-            <p class="show-answer"><button class="btn btn-lg btn-success show-answer-button" href="#" role="button">Show Answer</button></p>
+            <p class="show-answer"><button class="btn btn-lg btn-default show-answer-button" href="#" role="button">Show Answer</button></p>
+            <div class="response-quality-options">
+              <button type="button" class="btn btn-danger forgot-btn<%= concept.id %>" href="#" role="button">Forgot</button>
+              <button type="button" class="btn btn-warning barely-btn<%= concept.id %>" href="#" role="button">Barely</button>
+              <button type="button" class="btn btn-success easy-btn<%= concept.id %>" href="#" role="button">Easy</button>
+            </div>
         </div>
     <% end %>
 
@@ -40,3 +47,52 @@
         </div>
     <% end %>
 </div>
+
+<script type='text/javascript'>
+<% @concepts_to_learn.each_with_index do |concept, index| %>
+    $('.forgot-btn<%= concept.id %>').click(function(event) {
+      event.preventDefault();
+      $.ajax({
+          type: "PUT",
+          url: "/concepts/"+<%= concept.id %>,
+          dataType: 'json',
+          data: "authenticity_token="+AUTH_TOKEN+"&response_quality=3",
+          success: function(data){
+            console.log('success');
+          },
+          error: function(data){
+            console.log('error');
+            console.log(data);
+          }
+      });
+    });
+    $('.barely-btn<%= concept.id %>').click(function(event) {
+      event.preventDefault();
+      $.ajax({
+          type: "PUT",
+          url: "/concepts/"+<%= concept.id %>,
+          data: "authenticity_token="+AUTH_TOKEN+"&response_quality=4",
+          success: function(){
+            console.log('success');
+          },
+          error: function(){
+            console.log('error');
+          }
+      });
+    });
+    $('.easy-btn<%= concept.id %>').click(function(event) {
+      event.preventDefault();
+      $.ajax({
+          type: "PUT",
+          url: "/concepts/"+<%= concept.id %>,
+          data: "authenticity_token="+AUTH_TOKEN+"&response_quality=5",
+          success: function(){
+            console.log('success');
+          },
+          error: function(){
+            console.log('error');
+          }
+      });
+    });
+<% end %>
+</script>

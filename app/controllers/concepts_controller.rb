@@ -14,4 +14,9 @@ class ConceptsController < ApplicationController
       format.json { head :ok }
     end
   end
+
+  def update
+    puts params[:response_quality]
+    head :no_content
+  end
 end
