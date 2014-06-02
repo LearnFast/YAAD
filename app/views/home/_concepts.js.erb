@@ -4,9 +4,8 @@ $(document).ready(function() {
     $('.show-answer-button').click(function(event) {
         event.preventDefault();
         $(this).parent().parent().children('.answer').show();
-        $(this).hide();
+        $(this).parent().hide();
         $(this).parent().parent().children('.response-quality-options').show();
-        console.log('show answer');
     });
 
 

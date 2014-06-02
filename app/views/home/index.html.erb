@@ -52,19 +52,9 @@
 <% @concepts_to_learn.each_with_index do |concept, index| %>
     $('.forgot-btn<%= concept.id %>').click(function(event) {
       event.preventDefault();
-      $.ajax({
-          type: "PUT",
-          url: "/concepts/"+<%= concept.id %>,
-          dataType: 'json',
-          data: "authenticity_token="+AUTH_TOKEN+"&response_quality=3",
-          success: function(data){
-            console.log('success');
-          },
-          error: function(data){
-            console.log('error');
-            console.log(data);
-          }
-      });
+      $(this).parent().hide();
+      $(this).parent().parent().children('.show-answer').show()
+      $(this).parent().parent().children('.answer').hide()
     });
     $('.barely-btn<%= concept.id %>').click(function(event) {
       event.preventDefault();
