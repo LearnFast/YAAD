@@ -63,47 +63,59 @@ function responseAjaxCall(conceptId,responseQuality){
           }
       });
 };
+
 function toggleButtons(buttonId){
       $(buttonId).parent().hide();
       $(buttonId).parent().parent().children('.show-answer').show()
       $(buttonId).parent().parent().children('.answer').hide()
 };
+
+var current_position = 0;
+var total_count = <%= @concepts_to_learn.present? ? @concepts_to_learn.size : 0 %>;
+
+$('.concept-card').first().show();
+
+function nextConcept() {
+    $('*[data-position="' + current_position + '"]').hide(); 
+    if(current_position < total_count -1) {
+        current_position += 1;
+    }
+    else {
+        current_position = 0;
+    }
+    $('.current-position').html(current_position+1);
+    $('*[data-position="' + current_position + '"]').show(); 
+    console.log($('*[data-position="' + current_position + '"]'));
+};
+
+$('.concept-next-button').click(nextConcept);
+
 <% @concepts_to_learn.each_with_index do |concept, index| %>
     $('#incorrect-btn<%= concept.id %>').click(function(event) {
       event.preventDefault();
       toggleButtons('#incorrect-btn<%= concept.id %>');
       responseAjaxCall(<%= concept.id %>, '0');
+      $(this).parent().children().prop("disabled",true);
+      nextConcept();
     });
     $('#guess-btn<%= concept.id %>').click(function(event) {
       event.preventDefault();
       toggleButtons('#incorrect-btn<%= concept.id %>');
       responseAjaxCall(<%= concept.id %>, '3');
+      $(this).parent().children().prop("disabled",true);
+      nextConcept();
     });
     $('#hesitant-btn<%= concept.id %>').click(function(event) {
       event.preventDefault();
       responseAjaxCall(<%= concept.id %>, '4');
+      $(this).parent().children().prop("disabled",true);
+      nextConcept();
     });
     $('#easy-btn<%= concept.id %>').click(function(event) {
       event.preventDefault();
       responseAjaxCall(<%= concept.id %>, '5');
+      $(this).parent().children().prop("disabled",true);
+      nextConcept();
     });
 <% end %>
-
-    var current_position = 0;
-    var total_count = <%= @concepts_to_learn.present? ? @concepts_to_learn.size : 0 %>;
-
-    $('.concept-card').first().show();
-
-    $('.concept-next-button').click(function() {
-        $('*[data-position="' + current_position + '"]').hide(); 
-        if(current_position < total_count -1) {
-            current_position += 1;
-        }
-        else {
-            current_position = 0;
-        }
-        $('.current-position').html(current_position+1);
-        $('*[data-position="' + current_position + '"]').show(); 
-    });
-
 </script>
