@@ -9,9 +9,10 @@
             <p class="answer"><%= concept.answer %></p>
             <p class="show-answer"><button class="btn btn-lg btn-default show-answer-button" href="#" role="button">Show Answer</button></p>
             <div class="response-quality-options">
-              <button type="button" class="btn btn-danger forgot-btn<%= concept.id %>" href="#" role="button">Forgot</button>
-              <button type="button" class="btn btn-warning barely-btn<%= concept.id %>" href="#" role="button">Barely</button>
-              <button type="button" class="btn btn-success easy-btn<%= concept.id %>" href="#" role="button">Easy</button>
+              <button class="btn btn-danger" id="incorrect-btn<%= concept.id %>" href="#" role="button">Incorrect</button>
+              <button class="btn btn-warning" id="guess-btn<%= concept.id %>" href="#" role="button">Correct Guess</button>
+              <button class="btn btn-info" id="hesitant-btn<%= concept.id %>" href="#" role="button">Correct with Hesiation</button>
+              <button class="btn btn-success" id="easy-btn<%= concept.id %>" href="#" role="button">Easy</button>
             </div>
         </div>
     <% end %>
@@ -48,41 +49,61 @@
     <% end %>
 </div>
 
-<script type='text/javascript'>
+<script>
+function responseAjaxCall(conceptId,responseQuality){
+      $.ajax({
+          type: "PUT",
+          url: "/concepts/"+conceptId,
+          data: "authenticity_token="+AUTH_TOKEN+"&response_quality="+responseQuality,
+          success: function(){
+            console.log('success');
+          },
+          error: function(){
+            console.log('error');
+          }
+      });
+};
+function toggleButtons(buttonId){
+      $(buttonId).parent().hide();
+      $(buttonId).parent().parent().children('.show-answer').show()
+      $(buttonId).parent().parent().children('.answer').hide()
+};
 <% @concepts_to_learn.each_with_index do |concept, index| %>
-    $('.forgot-btn<%= concept.id %>').click(function(event) {
+    $('#incorrect-btn<%= concept.id %>').click(function(event) {
       event.preventDefault();
-      $(this).parent().hide();
-      $(this).parent().parent().children('.show-answer').show()
-      $(this).parent().parent().children('.answer').hide()
+      toggleButtons('#incorrect-btn<%= concept.id %>');
+      responseAjaxCall(<%= concept.id %>, '0');
     });
-    $('.barely-btn<%= concept.id %>').click(function(event) {
+    $('#guess-btn<%= concept.id %>').click(function(event) {
       event.preventDefault();
-      $.ajax({
-          type: "PUT",
-          url: "/concepts/"+<%= concept.id %>,
-          data: "authenticity_token="+AUTH_TOKEN+"&response_quality=4",
-          success: function(){
-            console.log('success');
-          },
-          error: function(){
-            console.log('error');
-          }
-      });
+      toggleButtons('#incorrect-btn<%= concept.id %>');
+      responseAjaxCall(<%= concept.id %>, '3');
     });
-    $('.easy-btn<%= concept.id %>').click(function(event) {
+    $('#hesitant-btn<%= concept.id %>').click(function(event) {
       event.preventDefault();
-      $.ajax({
-          type: "PUT",
-          url: "/concepts/"+<%= concept.id %>,
-          data: "authenticity_token="+AUTH_TOKEN+"&response_quality=5",
-          success: function(){
-            console.log('success');
-          },
-          error: function(){
-            console.log('error');
-          }
-      });
+      responseAjaxCall(<%= concept.id %>, '4');
+    });
+    $('#easy-btn<%= concept.id %>').click(function(event) {
+      event.preventDefault();
+      responseAjaxCall(<%= concept.id %>, '5');
     });
 <% end %>
+
+    var current_position = 0;
+    var total_count = <%= @concepts_to_learn.present? ? @concepts_to_learn.size : 0 %>;
+
+    $('.concept-card').first().show();
+
+    $('.concept-next-button').click(function() {
+        $('*[data-position="' + current_position + '"]').hide(); 
+        if(current_position < total_count -1) {
+            current_position += 1;
+        }
+        else {
+            current_position = 0;
+        }
+        $('.current-position').html(current_position+1);
+        $('*[data-position="' + current_position + '"]').show(); 
+    });
+
 </script>

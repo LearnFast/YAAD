@@ -1,4 +1,4 @@
-<script type='text/javascript'>
+<script>
 $(document).ready(function() {
 
     $('.show-answer-button').click(function(event) {
@@ -6,24 +6,6 @@ $(document).ready(function() {
         $(this).parent().parent().children('.answer').show();
         $(this).parent().hide();
         $(this).parent().parent().children('.response-quality-options').show();
-    });
-
-
-    var current_position = 0;
-    var total_count = <%= @concepts_to_learn.present? ? @concepts_to_learn.size : 0 %>;
-
-    $('.concept-card').first().show();
-
-    $('.concept-next-button').click(function() {
-        $('*[data-position="' + current_position + '"]').hide(); 
-        if(current_position < total_count -1) {
-            current_position += 1;
-        }
-        else {
-            current_position = 0;
-        }
-        $('.current-position').html(current_position+1);
-        $('*[data-position="' + current_position + '"]').show(); 
     });
 
     function deleteConceptBind() {

@@ -17,10 +17,14 @@ class UserConcept < ActiveRecord::Base
   validates_presence_of :review_date
 
   def update_from_review! response_quality
-    self.e_factor     = new_e_factor response_quality
-    self.rep_interval = new_rep_interval
-    self.review_date  = Date.today + rep_interval
-    self.save!
+    if response_quality > 3
+      self.e_factor     = new_e_factor response_quality
+      self.rep_interval = new_rep_interval
+    else
+      self.rep_interval = 1
+    end
+      self.review_date  = Date.today + rep_interval
+      self.save!
   end
 
   private
