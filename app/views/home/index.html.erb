@@ -1,7 +1,5 @@
 <%= render(:partial => "concepts.js", :collection => @concepts_to_learn) %> 
 
-
-
 <div class="learn-page">
     <% @concepts_to_learn.each_with_index do |concept, index| %>
         <div class="concept-card concept-hidden" data-position="<%= index %>">
