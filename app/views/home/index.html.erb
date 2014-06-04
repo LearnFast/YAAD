@@ -1,19 +1,27 @@
-<%= render(:partial => "concepts.js", :collection => @user_concepts_to_learn) %> 
+<%= render(:partial => "concepts.js", :collection => @concepts_to_learn) %> 
+
+
 
 <div class="learn-page">
-    <% @user_concepts_to_learn.each_with_index do |user_concept, index| %>
+    <% @concepts_to_learn.each_with_index do |concept, index| %>
         <div class="concept-card concept-hidden" data-position="<%= index %>">
-            <p class="lead"><%= user_concept.concept.question %></p>
-            <p class="answer"><%= user_concept.concept.answer %></p>
-            <p class="show-answer"><button class="btn btn-lg btn-success show-answer-button" href="#" role="button">Show Answer</button></p>
+            <p class="lead"><%= concept.question %></p>
+            <p class="answer"><%= concept.answer %></p>
+            <p class="show-answer"><button class="btn btn-lg btn-default show-answer-button" href="#" role="button">Show Answer</button></p>
+            <div class="response-quality-options">
+              <button class="btn btn-danger" id="incorrect-btn<%= concept.id %>" href="#" role="button">Incorrect</button>
+              <button class="btn btn-warning" id="guess-btn<%= concept.id %>" href="#" role="button">Correct Guess</button>
+              <button class="btn btn-info" id="hesitant-btn<%= concept.id %>" href="#" role="button">Correct with Hesiation</button>
+              <button class="btn btn-success" id="easy-btn<%= concept.id %>" href="#" role="button">Easy</button>
+            </div>
         </div>
     <% end %>
 
     <div class="concept-next">
         <span class="glyphicon glyphicon-circle-arrow-right concept-next-button"></span>
     </div>
-    <% starting_position = @user_concepts_to_learn.size == 0 ? 0 : 1 %>
-    <p class="position-viewer"><span class="current-position"><%= starting_position %></span>/<%= @user_concepts_to_learn.size %></p>
+    <% starting_position = @concepts_to_learn.size == 0 ? 0 : 1 %>
+    <p class="position-viewer"><span class="current-position"><%= starting_position %></span>/<%= @concepts_to_learn.size %></p>
 </div>
 
 <div class="manage-page">
@@ -30,13 +38,84 @@
             <button type="submit" class="btn btn-success new-concept">Create Card</button>
         </form>
     </div>
-    <% @user_concepts.each do |user_concept| %>
-        <div class="concept-edit" data-id="<%= user_concept.id %>">
+    <% @concepts.each do |concept| %>
+        <div class="concept-edit" data-id="<%= concept.id %>">
             <div class="concept-qa">
-                <p><strong>Question</strong></p><p><%= user_concept.concept.question %></p>
-                <p><strong>Answer</strong></p><p><%= user_concept.concept.answer %></p> 
+                <p><strong>Question</strong></p><p><%= concept.question %></p>
+                <p><strong>Answer</strong></p><p><%= concept.answer %></p> 
             </div>
             <button class="btn btn-danger delete-concept" href="#" role="button">Delete</button>
         </div>
     <% end %>
 </div>
+
+<script>
+function responseAjaxCall(conceptId,responseQuality){
+      $.ajax({
+          type: "PUT",
+          url: "/concepts/"+conceptId,
+          data: "authenticity_token="+AUTH_TOKEN+"&response_quality="+responseQuality,
+          success: function(){
+            console.log('success');
+          },
+          error: function(){
+            console.log('error');
+          }
+      });
+};
+
+function toggleButtons(buttonId){
+      $(buttonId).parent().hide();
+      $(buttonId).parent().parent().children('.show-answer').show()
+      $(buttonId).parent().parent().children('.answer').hide()
+};
+
+var current_position = 0;
+var total_count = <%= @concepts_to_learn.present? ? @concepts_to_learn.size : 0 %>;
+
+$('.concept-card').first().show();
+
+function nextConcept() {
+    $('*[data-position="' + current_position + '"]').hide(); 
+    if(current_position < total_count -1) {
+        current_position += 1;
+    }
+    else {
+        current_position = 0;
+    }
+    $('.current-position').html(current_position+1);
+    $('*[data-position="' + current_position + '"]').show(); 
+    console.log($('*[data-position="' + current_position + '"]'));
+};
+
+$('.concept-next-button').click(nextConcept);
+
+<% @concepts_to_learn.each_with_index do |concept, index| %>
+    $('#incorrect-btn<%= concept.id %>').click(function(event) {
+      event.preventDefault();
+      toggleButtons('#incorrect-btn<%= concept.id %>');
+      responseAjaxCall(<%= concept.id %>, '0');
+      $(this).parent().children().prop("disabled",true);
+      nextConcept();
+    });
+    $('#guess-btn<%= concept.id %>').click(function(event) {
+      event.preventDefault();
+      toggleButtons('#incorrect-btn<%= concept.id %>');
+      responseAjaxCall(<%= concept.id %>, '3');
+      $(this).parent().children().prop("disabled",true);
+      nextConcept();
+    });
+    $('#hesitant-btn<%= concept.id %>').click(function(event) {
+      event.preventDefault();
+      responseAjaxCall(<%= concept.id %>, '4');
+      $(this).parent().children().prop("disabled",true);
+      nextConcept();
+    });
+    $('#easy-btn<%= concept.id %>').click(function(event) {
+      event.preventDefault();
+      responseAjaxCall(<%= concept.id %>, '5');
+      $(this).parent().children().prop("disabled",true);
+      nextConcept();
+    });
+<% end %>
+</script>

@@ -1,27 +1,11 @@
-<script type='text/javascript'>
+<script>
 $(document).ready(function() {
 
     $('.show-answer-button').click(function(event) {
         event.preventDefault();
         $(this).parent().parent().children('.answer').show();
-        $(this).attr('disabled', true);
-    });
-
-    var current_position = 0;
-    var total_count = <%= @user_concepts_to_learn.present? ? @user_concepts_to_learn.size : 0 %>;
-
-    $('.concept-card').first().show();
-
-    $('.concept-next-button').click(function() {
-        $('*[data-position="' + current_position + '"]').hide(); 
-        if(current_position < total_count -1) {
-            current_position += 1;
-        }
-        else {
-            current_position = 0;
-        }
-        $('.current-position').html(current_position+1);
-        $('*[data-position="' + current_position + '"]').show(); 
+        $(this).parent().hide();
+        $(this).parent().parent().children('.response-quality-options').show();
     });
 
     function deleteConceptBind() {
@@ -31,8 +15,8 @@ $(document).ready(function() {
                 type: "DELETE",
                 url: "/concepts/"+$(this).parent().data('id'),
                 data: "authenticity_token="+AUTH_TOKEN
-            })
-            $(this).parent().hide("slow", function(){ $(this).remove(); })
+            });
+            $(this).parent().hide("slow", function(){ $(this).remove(); });
         });
     };
 
@@ -61,7 +45,7 @@ $(document).ready(function() {
             error: function() {
 
             }
-        })
+        });
     });
 });
 </script>

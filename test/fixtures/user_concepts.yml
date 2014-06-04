@@ -1,0 +1,84 @@
+# == Schema Information
+#
+# Table name: user_concepts
+#
+#  id           :integer          not null, primary key
+#  user_id      :integer
+#  concept_id   :integer
+#  review_date  :datetime
+#  e_factor     :decimal(, )      default(2.5)
+#  rep_interval :integer          default(1)
+#
+
+user_concept1:
+  user: user1
+  concept: concept1
+  review_date: <%= Date.today %>
+  e_factor: 2.5
+  rep_interval: 1
+user_concept2:
+  user: user1
+  concept: concept2
+  review_date: <%= Date.today %>
+  e_factor: 3.5
+  rep_interval: 10
+user_concept3:
+  user: user1
+  concept: concept3
+  review_date: <%= Date.today-2 %>
+  e_factor: 5.5
+  rep_interval: 13
+user_concept4:
+  user: user1
+  concept: concept4
+  review_date: <%= Date.today+2 %>
+  e_factor: 4.5
+  rep_interval: 5
+user_concept5:
+  user: user1
+  concept: concept5
+  review_date: <%= Date.today-1 %>
+  e_factor: 6.5
+  rep_interval: 20
+user_concept6:
+  user: user1
+  concept: concept6
+  review_date: <%= Date.today+1 %>
+  e_factor: 9.5
+  rep_interval: 30
+user_concept7:
+  user: user1
+  concept: concept7
+  review_date: <%= Date.today+10 %>
+  e_factor: 5.5
+  rep_interval: 8
+user_concept8:
+  user: user1
+  concept: concept10
+  review_date: <%= Date.today %>
+  e_factor: 2.5
+  rep_interval: 1
+user_concept9:
+  user: user2
+  concept: concept10
+  review_date: <%= Date.today %>
+  e_factor: 2.5
+  rep_interval: 1
+user_concept10:
+  user: user2
+  concept: concept9
+  review_date: <%= Date.today-1 %>
+  e_factor: 6.5
+  rep_interval: 10
+user_concept11:
+  user: user2
+  concept: concept8
+  review_date: <%= Date.today+1 %>
+  e_factor: 8.5
+  rep_interval: 16
+user_concept12:
+  user: user2
+  concept: concept7
+  review_date: <%= Date.today+1 %>
+  e_factor: 3.5
+  rep_interval: 4

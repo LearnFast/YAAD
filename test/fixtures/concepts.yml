@@ -1,0 +1,40 @@
+# == Schema Information
+#
+# Table name: concepts
+#
+#  id       :integer          not null, primary key
+#  question :string(255)
+#  answer   :string(255)
+#
+
+concept1:
+  question: Zafarnama kine likhiya?
+  answer: Guru Gobind Singh
+concept2:
+  question: Abhulhol ki hundi hai?
+  answer: Adi sherni adi zanani
+concept3:
+  question: What is Newton's second law of motion?
+  answer: F = ma
+concept4:
+  question: Which branch of physics describes angular momentum as some intrinsic property for a particle?
+  answer: Quantum Mechanics
+concept5:
+  question: What are the only kinds of operations a quantum computer can perform?
+  answer: Unitary Transformations
+concept6:
+  question: What major symmetry is missing from Maxwell's equations?
+  answer: The notion of a magnetic monopole
+concept7:
+  question: Why are the electro-magnetic fields of a moving charge so complicated?
+  answer: A moving charge produce a time varying electic flux which in turn creates a time varying magnetic flux. These two fields are related to each others time derivatives via Maxwell's equations.
+concept8:
+  question: Bharat ka rashtri geet ka pahela line kiya hai
+  answer: Jan gan man adinayak jaiya hai
+concept9:
+  question: How do I know you are lying?
+  answer: I don't I'm just a dumb program.
+concept10:
+  question: What day were these fixture questions written?
+  answer: May 31, 2014
+   

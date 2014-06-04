@@ -16,18 +16,14 @@
 #  created_at             :datetime
 #  updated_at             :datetime
 #  name                   :string(255)
-#  constant_a             :decimal(, )
-#  constant_b             :decimal(, )
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
-# This model initially had no columns defined.  If you add columns to the
-# model remove the '{}' from the fixture names and add the columns immediately
-# below each fixture, per the syntax in the comments below
-#
-one: {}
-# column: value
-#
-two: {}
-#  column: value
+user1:
+  name: Karan Toor
+  email: karan@karan.com
+  encrypted_password: $2a$10$KwmbiWzrawyvcavLk9vjbuCFSeu6qKPh5l.6gPsfN4Ex9UVk7662m
+user2:
+  name: Matt Schartman
+  email: matt@matt.com
+  encrypted_password: $2a$10$KwmbiWzrawyvcavLk9vjbuCFSeu6qKPh5l.6gPsfN4Ex9UVk7662m
