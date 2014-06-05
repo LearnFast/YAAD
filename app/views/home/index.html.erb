@@ -89,32 +89,26 @@ function nextConcept() {
 
 $('.concept-next-button').click(nextConcept);
 
+function clickEventsForResponseButtons(conceptId, responseQuality){
+    event.preventDefault();
+    if ( parseInt(responseQuality) < 4 ) {toggleButtons('#incorrect-btn' + conceptId);}
+    responseAjaxCall(conceptId, responseQuality);
+    $('#incorrect-btn' + conceptId).parent().children().prop("disabled",true);
+    nextConcept();
+};
+
 <% @concepts_to_learn.each_with_index do |concept, index| %>
     $('#incorrect-btn<%= concept.id %>').click(function(event) {
-      event.preventDefault();
-      toggleButtons('#incorrect-btn<%= concept.id %>');
-      responseAjaxCall(<%= concept.id %>, '0');
-      $(this).parent().children().prop("disabled",true);
-      nextConcept();
+        clickEventsForResponseButtons(<%= concept.id %>, '0');
     });
     $('#guess-btn<%= concept.id %>').click(function(event) {
-      event.preventDefault();
-      toggleButtons('#incorrect-btn<%= concept.id %>');
-      responseAjaxCall(<%= concept.id %>, '3');
-      $(this).parent().children().prop("disabled",true);
-      nextConcept();
+        clickEventsForResponseButtons(<%= concept.id %>, '3');
     });
     $('#hesitant-btn<%= concept.id %>').click(function(event) {
-      event.preventDefault();
-      responseAjaxCall(<%= concept.id %>, '4');
-      $(this).parent().children().prop("disabled",true);
-      nextConcept();
+        clickEventsForResponseButtons(<%= concept.id %>, '4');
     });
     $('#easy-btn<%= concept.id %>').click(function(event) {
-      event.preventDefault();
-      responseAjaxCall(<%= concept.id %>, '5');
-      $(this).parent().children().prop("disabled",true);
-      nextConcept();
+        clickEventsForResponseButtons(<%= concept.id %>, '5');
     });
 <% end %>
 </script>
