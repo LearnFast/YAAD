@@ -29,6 +29,8 @@ gem 'spring',        group: :development
 
 gem 'annotate', ">=2.6.0"
 
+gem 'pry'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

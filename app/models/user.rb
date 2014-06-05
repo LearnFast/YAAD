@@ -28,10 +28,14 @@ class User < ActiveRecord::Base
   has_many :user_concepts, dependent: :destroy
 
   def concepts_for_review
-    [].tap do |ary|
-      user_concepts.each do |uc|
-        ary << uc.concept if uc.review_date <= Date.today
-      end
+    ary = []
+
+    user_concepts.each do |uc|
+      ary << uc.concept if uc.review_date <= Date.today
+    end
+
+    if ary.size < 10
+      ary += (user_concepts-ary).sample(10-ary.size).map(&:concept)
     end
   end 
 
