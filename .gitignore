@@ -11,6 +11,7 @@
 secrets.yml
 */*.log
 *.swp
+*.swo
 tags
 .DS_Store
 public/assets

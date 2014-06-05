@@ -12,6 +12,7 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema.define(version: 20140528051620) do
+
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -38,9 +39,6 @@ ActiveRecord::Schema.define(version: 20140528051620) do
     t.decimal  "e_factor",     default: 2.5
     t.integer  "rep_interval", default: 1
   end
-
-  add_index "user_concepts", ["concept_id"], name: "index_user_concepts_on_concept_id", using: :btree
-  add_index "user_concepts", ["user_id"], name: "index_user_concepts_on_user_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false

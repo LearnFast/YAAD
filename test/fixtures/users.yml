@@ -26,4 +26,4 @@ user1:
 user2:
   name: Matt Schartman
   email: matt@matt.com
-  encrypted_password: $2a$10$KwmbiWzrawyvcavLk9vjbuCFSeu6qKPh5l.6gPsfN4Ex9UVk7662m
+  encrypted_password: $2a$10$Mbx24creNeuxKLEXwRRVNOf9dG7DxRD6s0dPiF9IPOZkiRFIqMoQW
