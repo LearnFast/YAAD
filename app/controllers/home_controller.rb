@@ -3,6 +3,6 @@ class HomeController < ApplicationController
 
   def index
     @concepts = current_user.concepts
-    @concepts_to_learn = current_user.concepts_for_review
+    @concepts_to_learn = current_user.concepts_for_review 
   end
 end

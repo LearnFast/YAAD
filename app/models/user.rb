@@ -32,6 +32,11 @@ class User < ActiveRecord::Base
 
     user_concepts.each do |uc|
       ary << uc.concept if uc.review_date <= Date.today
+      puts "\n\n\n\n\n"
+      puts 'heres the date'
+      puts uc.review_date
+      puts uc.review_date <= Date.today
+      puts "\n\n\n\n\n"
     end
 
     if ary.size < 10
@@ -42,7 +47,7 @@ class User < ActiveRecord::Base
   # take in a hash of values, user_concept_id: response_quality
   def update_user_stats resp_quality_hash
     resp_quality_hash.each do |k,v|
-      UserConcept.find(k).update_from_review v
+      UserConcept.find(k).update_from_review! v
     end
   end
 end

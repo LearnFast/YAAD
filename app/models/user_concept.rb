@@ -36,7 +36,7 @@ class UserConcept < ActiveRecord::Base
 
   def new_rep_interval
     return 1 if attempts.size == 1
-    return 6 if attempts.size == 2
+    return 4 if attempts.size == 2
     (rep_interval * e_factor).ceil
   end
 end

@@ -8,6 +8,7 @@
 #
 
 class Concept < ActiveRecord::Base
+  validates :question, :answer, presence: true
   has_many :users, :through => :user_concepts
   has_many :user_concepts, dependent: :destroy
 end

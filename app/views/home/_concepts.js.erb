@@ -1,52 +1,52 @@
 <script>
 $(document).ready(function() {
 
-    $('.show-answer-button').click(function(event) {
-        event.preventDefault();
-        $(this).parent().parent().children('.answer').show();
-        $(this).parent().hide();
-        $(this).parent().parent().children('.response-quality-options').show();
-    });
+//    $('.show-answer-button').click(function(event) {
+//        event.preventDefault();
+//        $(this).parent().parent().children('.answer').show();
+//        $(this).parent().hide();
+//        $(this).parent().parent().children('.response-quality-options').show();
+//    });
+//
+//    function deleteConceptBind() {
+//        $('.delete-concept').unbind().click(function(e) {
+//            e.preventDefault();
+//            $.ajax({
+//                type: "DELETE",
+//                url: "/concepts/"+$(this).parent().data('id'),
+//                data: "authenticity_token="+AUTH_TOKEN
+//            });
+//            $(this).parent().hide("slow", function(){ $(this).remove(); });
+//        });
+//    };
+//
+//    deleteConceptBind();
 
-    function deleteConceptBind() {
-        $('.delete-concept').unbind().click(function(e) {
-            e.preventDefault();
-            $.ajax({
-                type: "DELETE",
-                url: "/concepts/"+$(this).parent().data('id'),
-                data: "authenticity_token="+AUTH_TOKEN
-            });
-            $(this).parent().hide("slow", function(){ $(this).remove(); });
-        });
-    };
-
-    deleteConceptBind();
-
-    $('.new-concept').unbind().click(function(e) {
-        e.preventDefault();
-        $.ajax({
-            type: "POST",
-            url: "/concepts/",
-            beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
-            data: $('#new-concept-form').serialize(),
-            success: function(text) {
-                $('.manage-page').append(' \
-                    <div class="concept-edit" data-id="' + text + '"> \
-                        <div class="concept-qa"> \
-                            <p><strong>Question</strong></p><p>' + $("#question").val() + '</p> \
-                            <p><strong>Answer</strong></p><p>' + $("#answer").val() + '</p> \
-                        </div> \
-                        <button class="btn btn-danger delete-concept" href="#" role="button">Delete</button> \
-                    </div> \
-                ');
-                deleteConceptBind();
-                $("#question").val('');
-                $("#answer").val('');
-            },
-            error: function() {
-
-            }
-        });
-    });
+//    $('.new-concept').unbind().click(function(e) {
+//        e.preventDefault();
+//        $.ajax({
+//            type: "POST",
+//            url: "/concepts/",
+//            beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+//            data: $('#new-concept-form').serialize(),
+//            success: function(text) {
+//                $('.manage-page').append(' \
+//                    <div class="concept-edit" data-id="' + text + '"> \
+//                        <div class="concept-qa"> \
+//                            <p><strong>Question</strong></p><p>' + $("#question").val() + '</p> \
+//                            <p><strong>Answer</strong></p><p>' + $("#answer").val() + '</p> \
+//                        </div> \
+//                        <button class="btn btn-danger delete-concept" href="#" role="button">Delete</button> \
+//                    </div> \
+//                ');
+//                deleteConceptBind();
+//                $("#question").val('');
+//                $("#answer").val('');
+//            },
+//            error: function() {
+//
+//            }
+//        });
+//    });
 });
 </script>
