@@ -28,19 +28,16 @@ class User < ActiveRecord::Base
   has_many :user_concepts, dependent: :destroy
 
   def concepts_for_review
-    ary = []
+    [].tap do |ary|
 
-    user_concepts.each do |uc|
-      ary << uc.concept if uc.review_date <= Date.today
-      puts "\n\n\n\n\n"
-      puts 'heres the date'
-      puts uc.review_date
-      puts uc.review_date <= Date.today
-      puts "\n\n\n\n\n"
-    end
+      user_concepts.each do |uc|
+        ary << uc.concept if uc.review_date <= Date.today
+      end
 
-    if ary.size < 10
-      ary += (user_concepts-ary).sample(10-ary.size).map(&:concept)
+      #TODO Matt wants this feature. I'm temporarily disabling so it's easier to test behavior.
+      #if ary.size < 10
+      #  ary += (user_concepts-ary).sample(10-ary.size).map(&:concept)
+      #end
     end
   end 
 
