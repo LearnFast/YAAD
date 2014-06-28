@@ -134,7 +134,9 @@ function nextConcept() {
     else {
         current_position = 0;
     }
-    $('.current-position').html(current_position+1);
+if( total_count > 0) {
+      $('.current-position').html(current_position+1);
+    }
     $('*[data-position="' + current_position + '"]').show(); 
     console.log($('*[data-position="' + current_position + '"]'));
 };
