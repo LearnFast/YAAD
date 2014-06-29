@@ -17,7 +17,8 @@ class UserConcept < ActiveRecord::Base
   validates_presence_of :review_date
 
   def update_from_review! response_quality
-    update_from_reveiw! response_quality
+    update_from_review response_quality
+    attempts << Attempt.new(previous_id: attempts.last)
     self.save!
   end
 
@@ -40,8 +41,8 @@ class UserConcept < ActiveRecord::Base
   end
 
   def new_rep_interval
-    return 1 if attempts.size == 1
-    return 4 if attempts.size == 2
+    return 1 if attempts.size == 0
+    return 4 if attempts.size == 1
     (rep_interval * e_factor).ceil
   end
 end
