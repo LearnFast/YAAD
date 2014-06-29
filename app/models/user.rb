@@ -40,11 +40,4 @@ class User < ActiveRecord::Base
       #end
     end
   end 
-
-  # take in a hash of values, user_concept_id: response_quality
-  def update_user_stats resp_quality_hash
-    resp_quality_hash.each do |k,v|
-      UserConcept.find(k).update_from_review! v
-    end
-  end
 end
