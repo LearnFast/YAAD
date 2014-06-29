@@ -40,4 +40,13 @@ class User < ActiveRecord::Base
       #end
     end
   end 
+
+  def forcast(concepts = concepts_for_review)
+    {}.tap do |hash|
+      concepts.each do |concept|
+        uc = UserConcept.find_by(user: self, concept: concept)
+        hash[concept.id] = { 4 => uc.update_from_review(4).rep_interval, 5 => uc.update_from_review(5).rep_interval }
+      end
+    end
+  end
 end
