@@ -9,8 +9,8 @@
             <div class="response-quality-options">
               <button class="btn btn-danger" id="incorrect-btn<%= concept.id %>" href="#" role="button">Incorrect</button>
               <button class="btn btn-warning" id="guess-btn<%= concept.id %>" href="#" role="button">Correct Guess</button>
-              <button class="btn btn-info" id="hesitant-btn<%= concept.id %>" href="#" role="button">Correct with Hesiation</button>
-              <button class="btn btn-success" id="easy-btn<%= concept.id %>" href="#" role="button">Easy</button>
+              <button class="btn btn-info" id="hesitant-btn<%= concept.id %>" href="#" role="button">Correct with Hesiation (<%= @forcast_hash[concept.id][4] %> days)</button>
+              <button class="btn btn-success" id="easy-btn<%= concept.id %>" href="#" role="button">Easy (<%= @forcast_hash[concept.id][5] %> days)</button>
             </div>
         </div>
     <% end %>
