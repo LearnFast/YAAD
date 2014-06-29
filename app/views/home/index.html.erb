@@ -119,14 +119,15 @@ function toggleButtons(buttonId){
 
 var current_position = 0;
 var total_count = <%= @concepts_to_learn.present? ? @concepts_to_learn.size : 0 %>;
+var concepts_completed = 0;
 
 $('.concept-card').first().show();
 
 function nextConcept() {
-  // the three lines prevent us from saving a new concept for some reason
-    //if total_count == 0
-    //  return;
-    //}
+    if (concepts_completed == total_count) {
+      alert('You have completed all the concepts due today.');
+      concepts_completed = 0;
+    }
     $('*[data-position="' + current_position + '"]').hide(); 
     if(current_position < total_count -1) {
         current_position += 1;
@@ -134,7 +135,7 @@ function nextConcept() {
     else {
         current_position = 0;
     }
-if( total_count > 0) {
+    if( total_count > 0) {
       $('.current-position').html(current_position+1);
     }
     $('*[data-position="' + current_position + '"]').show(); 
@@ -162,9 +163,11 @@ function clickEventsForResponseButtons(conceptId, responseQuality){
         clickEventsForResponseButtons(<%= concept.id %>, '3');
     });
     $('#hesitant-btn<%= concept.id %>').click(function(event) {
+        concepts_completed++;
         clickEventsForResponseButtons(<%= concept.id %>, '4');
     });
     $('#easy-btn<%= concept.id %>').click(function(event) {
+        concepts_completed++;
         clickEventsForResponseButtons(<%= concept.id %>, '5');
     });
 <% end %>
