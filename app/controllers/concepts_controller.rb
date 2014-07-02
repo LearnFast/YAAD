@@ -19,4 +19,11 @@ class ConceptsController < ApplicationController
     UserConcept.find_by(user: current_user, concept_id: params[:id]).update_from_review! params[:response_quality].to_i
     head :no_content
   end
+
+  def feedback
+    Feedback.create!(submission: params['feedback'], user: current_user)
+    respond_to do |format|
+      format.json { head :ok }
+    end
+  end
 end
