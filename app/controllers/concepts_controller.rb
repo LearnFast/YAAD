@@ -22,8 +22,6 @@ class ConceptsController < ApplicationController
 
   def feedback
     Feedback.create!(submission: params['feedback'], user: current_user)
-    respond_to do |format|
-      format.json { head :ok }
-    end
+    render nothing: true
   end
 end
