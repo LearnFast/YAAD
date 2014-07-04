@@ -26,6 +26,7 @@ class User < ActiveRecord::Base
 
   has_many :concepts, :through => :user_concepts
   has_many :user_concepts, dependent: :destroy
+  has_many :feedbacks
 
   def concepts_for_review
     [].tap do |ary|

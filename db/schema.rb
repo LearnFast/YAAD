@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140528051620) do
+ActiveRecord::Schema.define(version: 20140702042938) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,6 +31,15 @@ ActiveRecord::Schema.define(version: 20140528051620) do
     t.string "question"
     t.string "answer"
   end
+
+  create_table "feedbacks", force: true do |t|
+    t.text     "submission"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "user_id"
+  end
+
+  add_index "feedbacks", ["user_id"], name: "index_feedbacks_on_user_id", using: :btree
 
   create_table "user_concepts", force: true do |t|
     t.integer  "user_id"
