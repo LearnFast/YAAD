@@ -22,7 +22,7 @@
     <p class="position-viewer"><span class="current-position"><%= starting_position %></span>/<%= @concepts_to_learn.size %></p>
 </div>
 
-<div class="manage-page">
+<div class="manage-page" style="display: none;">
     <div class="concept-edit">
         <form role="form" id="new-concept-form">
             <div class="form-group">
@@ -54,6 +54,60 @@
             <button class="btn btn-danger delete-concept" href="#" role="button">Delete</button>
         </div>
     <% end %>
+</div>
+
+<div class="about-page" style="display: none;">
+  <div class="jumbotron">
+    <h1>Yaad</h1>
+    <p>Optimize Learning</p>
+  </div> 
+  <div class="bs-callout bs-callout-info">
+    <h2>What is Yaad?</h2>
+    <p>
+    Yaad is an application designed for learning concepts using efficient repetition
+    techniques and doing so in the easiest most intuitive way possible.
+    </p>
+  </div>
+  <div class="bs-callout bs-callout-info">
+    <h2>How do I use Yaad?</h2>
+    <p>
+    First you input the concepts you would like to learn on the <i>Manage</i> page. 
+    Then, whenever you visit the application you will be quizzed on the concepts.
+    The application will notify you when you have successfully completed all the concepts 
+    due for that day.
+    </p>
+    <p>
+    After that, if you have extra time Yaad will give you additional concepts that 
+    were not due that day for more review. It's that simple!  
+    </p>
+  </div>
+  <div class="bs-callout bs-callout-info">
+    <h2>How is Yaad better for learning?</h2>
+    <p>
+    Based on results from neuroscience studies and intuition we know when someone learns 
+    a new concept they initially need to repeat it frequently then over time they can 
+    repeat it less often while still retaining the same amount of knowledge.
+    </p>
+    <p>
+    Yaad uses a variant of the <i>SM-2</i> algorithm to formalize this phenomenon into 
+    a learning technique.
+  </div>
+  <div class="bs-callout bs-callout-info">
+    <h2>When should I use Yaad?</h2>
+    <p>
+    Yaad is useful to review any time, but you can really benefit from using it during 
+    short periods of downtime. Get to class early? Got time to kill on the bus? Waiting 
+    for water to boil? Using your phone in the bathroom? These are all perfect times 
+    for a quick review.
+    </p>
+    <p>
+    As far as things you can review goes, the sky's the limit. You might be reading 
+    a technical book and want to remember a term you encountered 
+    for more than the next five minutes. Same goes for studying a foreign language or 
+    history book. Maybe you are trying to remember common functions in a programming 
+    language. You might even be trying to review examples of different types of physics problems. 
+    </p>
+  </div>
 </div>
 
 <script>

@@ -17,11 +17,13 @@
 
 $(document).ready(function() {
   $('.manage-page').hide();
+  $('.about-page').hide();
   $('.nav li').click(function(e) {
     e.preventDefault();
     $('.nav li').removeClass('active');
     $(this).addClass('active');
     $('.learn-page').hide();
+    $('.about-page').hide();
     $('.manage-page').hide();
     $('.' + $(this).data('page')).show();
   });
