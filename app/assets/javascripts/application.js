@@ -24,6 +24,7 @@ $(document).ready(function() {
     $(this).addClass('active');
     $('.learn-page').hide();
     $('.about-page').hide();
+    console.log('hid the .about-page');
     $('.manage-page').hide();
     $('.' + $(this).data('page')).show();
   });
