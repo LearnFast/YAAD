@@ -16,7 +16,7 @@ class UserConcept < ActiveRecord::Base
   has_many :attempts
   validates_presence_of :review_date
 
- def update_from_review! response_quality
+  def update_from_review! response_quality
     update_from_review response_quality
     attempts << Attempt.new(previous_id: attempts.last) if response_quality > 3
     self.save!
@@ -24,15 +24,17 @@ class UserConcept < ActiveRecord::Base
 
   def update_from_review response_quality
     if response_quality == 0
-      attempts.destroy_all
+      self.attempts.destroy_all
+      self.rep_interval = new_rep_interval
+      self.review_date  = Date.today + rep_interval
     elsif response_quality < 4
-      attempts.last.destroy if attempts.last.present?
-      e_factor = new_e_factor response_quality
+      self.attempts.last.destroy if attempts.last.present?
+      self.e_factor = new_e_factor response_quality
     else
       self.e_factor     = new_e_factor response_quality
       self.rep_interval = new_rep_interval
+      self.review_date  = Date.today + rep_interval
     end
-    self.review_date  = Date.today + rep_interval
     self
   end
 
