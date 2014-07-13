@@ -178,7 +178,7 @@ deleteConceptBind();
 function responseAjaxCall(conceptId,responseQuality){
       $.ajax({
           type: "PUT",
-          url: "/concepts/"+conceptId,
+          url: "/user_concepts/"+conceptId,
           beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
           data: "response_quality="+responseQuality,
           success: function(){
@@ -226,6 +226,8 @@ $('.concept-next-button').click(nextConcept);
 function clickEventsForResponseButtons(conceptId, responseQuality){
     event.preventDefault();
     if ( parseInt(responseQuality) < 4 ) {
+        responseAjaxCall(conceptId, responseQuality);
+        $('#incorrect-btn' + conceptId).parent().children().prop("disabled",true);
         toggleButtons('#incorrect-btn' + conceptId);
     } else {
         responseAjaxCall(conceptId, responseQuality);
