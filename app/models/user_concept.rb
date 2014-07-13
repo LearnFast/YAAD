@@ -26,7 +26,7 @@ class UserConcept < ActiveRecord::Base
     if response_quality == 0
       attempts.destroy_all
     elsif response_quality < 4
-      attempts.last.destroy
+      attempts.last.destroy if attempts.last.present?
       e_factor = new_e_factor response_quality
     else
       self.e_factor     = new_e_factor response_quality

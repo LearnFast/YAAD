@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 
 
   resources :concepts
+  resources :user_concepts
   root to: "home#index"
   post 'feedback' => 'concepts#feedback'
   # The priority is based upon order of creation: first created -> highest priority.
