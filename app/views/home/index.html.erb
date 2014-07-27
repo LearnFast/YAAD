@@ -1,9 +1,9 @@
 <div class="learn-page">
     <% @concepts_to_learn.each_with_index do |concept, index| %>
-        <div class="concept-card concept-hidden" data-position="<%= index %>">
+        <div class="concept-card concept-hidden" id="concept-card<%= concept.id %>" data-position="<%= index %>">
             <p class="lead"><%= concept.question %></p>
             <p class="answer"><%= concept.answer %></p>
-            <p class="show-answer"><button class="btn btn-lg btn-default show-answer-button" href="#" role="button">Show Answer</button></p>
+            <p class="show-answer" id="show-answer<%= concept.id %>"><button class="btn btn-lg btn-default show-answer-button" href="#" role="button">Show Answer</button></p>
             <div class="response-quality-options">
               <button class="btn btn-danger" id="incorrect-btn<%= concept.id %>" href="#" role="button">Incorrect</button>
               <button class="btn btn-warning" id="guess-btn<%= concept.id %>" href="#" role="button">Correct Guess</button>
@@ -17,7 +17,7 @@
         <span class="glyphicon glyphicon-circle-arrow-right concept-next-button"></span>
     </div>
     <% starting_position = @concepts_to_learn.size == 0 ? 0 : 1 %>
-    <p class="position-viewer"><span class="current-position"><%= starting_position %></span>/<%= @concepts_to_learn.size %></p>
+    <p class="position-viewer"><span id="current-position"><%= starting_position %></span>/<span id="total-count"><%= @concepts_to_learn.size %></span></p>
 </div>
 
 <div class="manage-page" style="display: none;">
@@ -47,7 +47,7 @@
         <div class="concept-edit" data-id="<%= concept.id %>">
             <div class="concept-qa">
                 <p><strong>Question</strong></p><p><%= concept.question %></p>
-                <p><strong>Answer</strong></p><p><%= concept.answer %></p> 
+                <p><strong>Answer</strong></p><p><%= concept.answer %></p>
             </div>
             <button class="btn btn-danger delete-concept" href="#" role="button">Delete</button>
         </div>
@@ -58,7 +58,7 @@
   <div class="jumbotron">
     <h1>Yaad</h1>
     <p>Optimize Learning</p>
-  </div> 
+  </div>
   <div class="bs-callout bs-callout-info">
     <h2>What is Yaad?</h2>
     <p>
@@ -69,46 +69,158 @@
   <div class="bs-callout bs-callout-info">
     <h2>How do I use Yaad?</h2>
     <p>
-    First you input the concepts you would like to learn on the <i>Manage</i> page. 
+    First you input the concepts you would like to learn on the <i>Manage</i> page.
     Then, whenever you visit the application you will be quizzed on the concepts.
-    The application will notify you when you have successfully completed all the concepts 
+    The application will notify you when you have successfully completed all the concepts
     due for that day.
     </p>
     <p>
-    After that, if you have extra time Yaad will give you additional concepts that 
-    were not due that day for more review. It's that simple!  
+    After that, if you have extra time Yaad will give you additional concepts that
+    were not due that day for more review. It's that simple!
     </p>
   </div>
   <div class="bs-callout bs-callout-info">
     <h2>How is Yaad better for learning?</h2>
     <p>
-    Based on results from neuroscience studies and intuition we know when someone learns 
-    a new concept they initially need to repeat it frequently then over time they can 
+    Based on results from neuroscience studies and intuition we know when someone learns
+    a new concept they initially need to repeat it frequently then over time they can
     repeat it less often while still retaining the same amount of knowledge.
     </p>
     <p>
-    Yaad uses a variant of the <i>SM-2</i> algorithm to formalize this phenomenon into 
+    Yaad uses a variant of the <i>SM-2</i> algorithm to formalize this phenomenon into
     a learning technique.
   </div>
   <div class="bs-callout bs-callout-info">
     <h2>When should I use Yaad?</h2>
     <p>
-    Yaad is useful to review any time, but you can really benefit from using it during 
-    short periods of downtime. Get to class early? Got time to kill on the bus? Waiting 
-    for water to boil? Using your phone in the bathroom? These are all perfect times 
+    Yaad is useful to review any time, but you can really benefit from using it during
+    short periods of downtime. Get to class early? Got time to kill on the bus? Waiting
+    for water to boil? Using your phone in the bathroom? These are all perfect times
     for a quick review.
     </p>
     <p>
-    As far as things you can review goes, the sky's the limit. You might be reading 
-    a technical book and want to remember a term you encountered 
-    for more than the next five minutes. Same goes for studying a foreign language or 
-    history book. Maybe you are trying to remember common functions in a programming 
-    language. You might even be trying to review examples of different types of physics problems. 
+    As far as things you can review goes, the sky's the limit. You might be reading
+    a technical book and want to remember a term you encountered
+    for more than the next five minutes. Same goes for studying a foreign language or
+    history book. Maybe you are trying to remember common functions in a programming
+    language. You might even be trying to review examples of different types of physics problems.
     </p>
   </div>
 </div>
 
 <script>
+//===================== //
+// Learn page functions //
+//===================== //
+
+  // functional bindings and other stateful modifications
+$('.show-answer-button').click(function(event) {
+    event.preventDefault();
+    showAnswer()($(".concept-card:visible"));
+});
+
+var current_position = 0;
+var totalCount = <%= @concepts_to_learn.present? ? @concepts_to_learn.size : 0 %>;
+var concepts_completed = 0;
+
+$('.concept-card').first().show();
+
+function nextConcept() {
+    if (concepts_completed == totalCount) {
+      alert('You have completed all the concepts due today.');
+      concepts_completed = 0;
+    }
+    $('*[data-position="' + current_position + '"]').hide();
+    if(current_position < totalCount -1) {
+        current_position += 1;
+    }
+    else {
+        current_position = 0;
+    }
+    if( totalCount > 0) {
+      $('.current-position').html(current_position+1);
+    }
+    $('*[data-position="' + current_position + '"]').show();
+    hideAnswer()($(".concept-card:visible"));
+    console.log($('*[data-position="' + current_position + '"]'));
+};
+
+$('.concept-next-button').click(function(event){
+    nextConcept();
+});
+
+<% @concepts_to_learn.each_with_index do |concept, index| %>
+    $('#incorrect-btn<%= concept.id %>').click(function(event) {
+        incorrectResponseHandler(<%= concept.id %>, '0')();
+    });
+    $('#guess-btn<%= concept.id %>').click(function(event) {
+        incorrectResponseHandler(<%= concept.id %>, '3')();
+    });
+    $('#hesitant-btn<%= concept.id %>').click(function(event) {
+        correctResponseHandler(<%= concept.id %>, '4')();
+    });
+    $('#easy-btn<%= concept.id %>').click(function(event) {
+        correctResponseHandler(<%= concept.id %>, '5')();
+    });
+<% end %>
+
+function responseAjaxCall(conceptId,responseQuality){
+      $.ajax({
+          type: "PUT",
+          url: "/user_concepts/"+conceptId,
+          beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+          data: "response_quality="+responseQuality,
+          success: function(){
+            console.log('success');
+          },
+          error: function(){
+            console.log('error');
+          }
+      });
+};
+
+  // helper functional functions
+
+function showAnswer(){
+  return (function(conceptSelector) {
+    conceptSelector.children('.answer').show();
+    conceptSelector.children('.response-quality-options').show();
+    conceptSelector.children('.show-answer').hide();
+  });
+};
+
+function hideAnswer(){
+  return (function(conceptSelector) {
+    conceptSelector.children('.answer').hide();
+    conceptSelector.children('.response-quality-options').hide();
+    conceptSelector.children('.show-answer').show();
+  });
+};
+
+function correctResponseHandler(conceptId, responseQuality){
+  event.preventDefault();
+  return (function(){
+    $(".concept-card:visible").remove();
+    $("#total-count").html(--totalCount);
+    concepts_completed++;
+    nextConcept();
+    responseAjaxCall(conceptId, responseQuality);
+  });
+};
+
+function incorrectResponseHandler(conceptId, responseQuality){
+  event.preventDefault();
+  return (function(){
+    $(".concept-card:visible").children(".response-quality-options").children().prop("disabled",true)
+    nextConcept();
+    responseAjaxCall(conceptId, responseQuality);
+  });
+};
+
+//====================== //
+// Manage page functions //
+//====================== //
+
 $('.new-concept').click(function(e) {
     e.preventDefault();
     $.ajax({
@@ -154,13 +266,6 @@ $('.feedback-button').click(function(e) {
 });
 
 
-$('.show-answer-button').click(function(event) {
-    event.preventDefault();
-    $(this).parent().parent().children('.answer').show();
-    $(this).parent().hide();
-    $(this).parent().parent().children('.response-quality-options').show();
-});
-
 function deleteConceptBind() {
     $('.delete-concept').unbind().click(function(e) {
         e.preventDefault();
@@ -175,81 +280,6 @@ function deleteConceptBind() {
 
 deleteConceptBind();
 
-function responseAjaxCall(conceptId,responseQuality){
-      $.ajax({
-          type: "PUT",
-          url: "/user_concepts/"+conceptId,
-          beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
-          data: "response_quality="+responseQuality,
-          success: function(){
-            console.log('success');
-          },
-          error: function(){
-            console.log('error');
-          }
-      });
-};
+//$("*").show()
 
-function toggleButtons(buttonId){
-      $(buttonId).parent().hide();
-      $(buttonId).parent().parent().children('.show-answer').show()
-      $(buttonId).parent().parent().children('.answer').hide()
-};
-
-var current_position = 0;
-var total_count = <%= @concepts_to_learn.present? ? @concepts_to_learn.size : 0 %>;
-var concepts_completed = 0;
-
-$('.concept-card').first().show();
-
-function nextConcept() {
-    if (concepts_completed == total_count) {
-      alert('You have completed all the concepts due today.');
-      concepts_completed = 0;
-    }
-    $('*[data-position="' + current_position + '"]').hide(); 
-    if(current_position < total_count -1) {
-        current_position += 1;
-    }
-    else {
-        current_position = 0;
-    }
-    if( total_count > 0) {
-      $('.current-position').html(current_position+1);
-    }
-    $('*[data-position="' + current_position + '"]').show(); 
-    console.log($('*[data-position="' + current_position + '"]'));
-};
-
-$('.concept-next-button').click(nextConcept);
-
-function clickEventsForResponseButtons(conceptId, responseQuality){
-    event.preventDefault();
-    if ( parseInt(responseQuality) < 4 ) {
-        responseAjaxCall(conceptId, responseQuality);
-        $('#incorrect-btn' + conceptId).parent().children().prop("disabled",true);
-        toggleButtons('#incorrect-btn' + conceptId);
-    } else {
-        responseAjaxCall(conceptId, responseQuality);
-        $('#incorrect-btn' + conceptId).parent().children().prop("disabled",true);
-    }
-    nextConcept();
-};
-
-<% @concepts_to_learn.each_with_index do |concept, index| %>
-    $('#incorrect-btn<%= concept.id %>').click(function(event) {
-        clickEventsForResponseButtons(<%= concept.id %>, '0');
-    });
-    $('#guess-btn<%= concept.id %>').click(function(event) {
-        clickEventsForResponseButtons(<%= concept.id %>, '3');
-    });
-    $('#hesitant-btn<%= concept.id %>').click(function(event) {
-        concepts_completed++;
-        clickEventsForResponseButtons(<%= concept.id %>, '4');
-    });
-    $('#easy-btn<%= concept.id %>').click(function(event) {
-        concepts_completed++;
-        clickEventsForResponseButtons(<%= concept.id %>, '5');
-    });
-<% end %>
 </script>
