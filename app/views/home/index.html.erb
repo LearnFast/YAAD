@@ -113,20 +113,21 @@
 // Learn page functions //
 //======================//
 
-  // functional bindings and other stateful modifications
-
+  // some preliminary setup
 var current_position = 0;
 var totalCount = <%= @concepts_to_learn.present? ? @concepts_to_learn.size : 0 %>;
 var concepts_completed = 0;
 
 $('.concept-card').first().show();
 
+  // functional bindings and other stateful modifications
 $('.show-answer-button').click(function(event) {
     event.preventDefault();
     showAnswer()($(".concept-card:visible"));
 });
 
 $('.concept-next-button').click(function(event){
+    event.preventDefault();
     setNextConcept(function(visibleConcept){ visibleConcept.hide(); });
 });
 
@@ -164,6 +165,8 @@ function responseAjaxCall(conceptId,responseQuality){
       });
 };
 
+  // helper functions
+
 function setNextConcept(howToRemove){
   var currentConcept = $(".concept-card:visible");
   var nextConcept = $(".concept-card:visible").next(".concept-card");
@@ -191,8 +194,6 @@ function updateConceptIndicators(){
     $('.current-position').html(current_position+1);
   }
 };
-
-  // helper functional functions
 
 function showAnswer(){
   return (function(conceptSelector) {
@@ -300,7 +301,5 @@ function deleteConceptBind() {
 };
 
 deleteConceptBind();
-
-//$("*").show()
 
 </script>
