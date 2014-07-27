@@ -3,7 +3,7 @@ class HomeController < ApplicationController
 
   def index
     @concepts = current_user.concepts
-    @concepts_to_learn = current_user.concepts_for_review
+    @concepts_to_learn = current_user.concepts_for_review.shuffle
     @forcast_hash = current_user.forcast
   end
 end
