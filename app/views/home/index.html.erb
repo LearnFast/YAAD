@@ -129,6 +129,7 @@ $('.show-answer-button').click(function(event) {
 $('.concept-next-button').click(function(event){
     event.preventDefault();
     setNextConcept(function(visibleConcept){ visibleConcept.hide(); });
+    updateConceptIndicators();
 });
 
 <% @concepts_to_learn.each_with_index do |concept, index| %>
@@ -191,7 +192,9 @@ function updateConceptIndicators(){
     current_position = 0;
   }
   if( totalCount > 0) {
-    $('.current-position').html(current_position+1);
+    $('#current-position').html(current_position+1);
+  } else {
+    $('#current-position').html(0);
   }
 };
 
